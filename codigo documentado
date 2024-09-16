@@ -1,0 +1,106 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// clase base persona
+class Persona {
+protected:
+   string nombre;
+   int edad;
+
+public:
+// constructor de persona que señala nombre y edad
+   Persona(string nombre, int edad) : nombre(nombre), edad(edad) {}
+
+//metodo virtual puro que obliga a las clases derivadas a implementar esta funcion  
+   virtual void mostrarInformacion() const = 0;
+
+//metodo para obtener el nombre de la persona  
+   string obtenerNombre() const {
+       return nombre;
+   }
+
+//metodo para obtener la edad de la persona 
+   int obtenerEdad() const {
+       return edad;
+   }
+
+// es un destructur virtual
+   virtual ~Persona() {}
+};
+
+// clase estudiante hereda de persona
+class Estudiante : public Persona {
+private:
+   string carrera;
+   int matricula;
+
+public:
+//constructor de estudiante que señala los atributos
+   Estudiante(string nombre, int edad, string carrera, int matricula)
+       : Persona(nombre, edad), carrera(carrera), matricula(matricula) {}
+
+//se implementa para mostrar informacion para los estudiantes    
+   void mostrarInformacion() const override {
+       cout << "Estudiante: " << nombre << endl;
+       cout << "Edad: " << edad << endl;
+       cout << "Carrera: " << carrera << endl;
+       cout << "Matrícula: " << matricula << endl;
+   }
+};
+//clase profesor que se hereda de persona
+class Profesor : public Persona {
+private:
+   string departamento;
+   double salario;
+
+public:
+//constructor de profesor que señala los atributos
+   Profesor(string nombre, int edad, string departamento, double salario)
+       : Persona(nombre, edad), departamento(departamento), salario(salario) {}
+
+//se implementa para mostrar informacion para profesor    
+   void mostrarInformacion() const override {
+       cout << "Profesor: " << nombre << endl;
+       cout << "Edad: " << edad << endl;
+       cout << "Departamento: " << departamento << endl;
+       cout << "Salario: $" << salario << endl;
+   }
+};
+// clase tecnico que se hereda de persona
+class tecnico1 : public Persona {
+private:
+   string region;
+   double salario;
+
+public:
+//constructor de tecnico que señala los atributos
+   tecnico1(string nombre, int edad, string region, double salario)
+      : Persona(nombre, edad), region(region), salario(salario) {}
+
+//si implementa para mostrar informacion para tecnico   
+   void mostrarInformacion() const override {
+       cout << "tecnico1: " << nombre << endl;
+       cout << "Edad: " << edad << endl;
+       cout << "Region: " << region << endl;
+       cout << "Salario: $" << salario << endl;
+   }
+};
+
+
+int main() {
+//se crea un objeto estudiante uno tecnico y uno profesor  
+   Estudiante estudiante1("Ana Figueredo", 20, "Ingeniería en Sistemas", 12345);
+   Profesor profesor1("Carlos Ramirez", 45, "Ciencias de la Computación", 55000);
+   tecnico1 tecnico1("camilo andres", 30, "Metrología para la industria gráfica", 10000);
+//mostrar informacion del estudiante
+   estudiante1.mostrarInformacion();
+   cout << endl;
+//mostrar informacion del profesor 
+   profesor1.mostrarInformacion();
+   cout << endl;
+//mostrar informacion del tecnico
+   tecnico1.mostrarInformacion();
+
+   return 0;
+}
